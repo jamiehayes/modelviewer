@@ -38,9 +38,9 @@ impl Default for MeshVertex {
     fn default() -> Self {
         Self {
             pos: Point3F::origin(),
-            norm: zero::<Vector3F>(),
-            tangent: zero::<Vector3F>(),
-            uv: zero::<Vector2F>(),
+            norm: zero(),
+            tangent: zero(),
+            uv: zero(),
             color: Color::white()
         }
     }

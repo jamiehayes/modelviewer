@@ -12,7 +12,7 @@ pub struct MaterialInfo {
     pub shader_file: PathBuf,
     pub vert_format: VertexFormat,
     pub topology: PrimitiveTopology,
-    pub textures: HashMap<String, PathBuf>    
+    pub textures: HashMap<String, PathBuf>
 }
 
 ///
@@ -48,8 +48,8 @@ impl Material {
         let ps = gfx.create_pixel_shader(&ps_code)?;
         let layout = gfx.create_input_layout(&mat_info.vert_format, &vs_code)?;
 
-        let mut textures = Vec::<Texture>::with_capacity(mat_info.textures.len());
-        let mut lookup = HashMap::<&Path, usize>::with_capacity(mat_info.textures.len());        
+        let mut textures = Vec::with_capacity(mat_info.textures.len());
+        let mut lookup = HashMap::<&Path, usize>::with_capacity(mat_info.textures.len());
         for (name, path) in mat_info.textures.iter() {
             if lookup.contains_key::<Path>(path) {
                 continue;
@@ -62,7 +62,7 @@ impl Material {
 
         let mut ps_inputs = Vec::<(u32, ShaderInput)>::new();
 
-        // TODO: REFLECT THE SHADER!        
+        // TODO: REFLECT THE SHADER!
         if let Some(path) = mat_info.textures.get("albedo_map") {
             let idx = lookup.get::<Path>(path).unwrap();
             if let Ok(input) = gfx.create_texture_shader_input(&textures[*idx]) {

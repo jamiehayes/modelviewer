@@ -87,7 +87,7 @@ impl Graphics {
 
                         (*info).Release();
                     }
-                    
+
                     (*dbg).Release();
                 }
             }
@@ -143,7 +143,7 @@ impl Graphics {
                     )
                 }
                 else {
-                    let mut data = Vec::<Color>::with_capacity(img.width * img.height);
+                    let mut data = Vec::with_capacity(img.width * img.height);
                     for i in 0..(img.width * img.height) {
                         let r = img.data[i * 3 + 0];
                         let g = img.data[i * 3 + 1];
@@ -184,7 +184,7 @@ impl Graphics {
                     )
                 }
                 else {
-                    let mut data = Vec::<ColorF>::with_capacity(img.width * img.height);
+                    let mut data = Vec::with_capacity(img.width * img.height);
                     for i in 0..(img.width * img.height) {
                         let r = img.data[i * 3 + 0];
                         let g = img.data[i * 3 + 1];
@@ -348,7 +348,7 @@ impl Graphics {
         ];
 
         // create input element descriptors for each element in our format
-        let mut elements = Vec::<d3d11::D3D11_INPUT_ELEMENT_DESC>::with_capacity(format.num_inputs as usize);
+        let mut elements = Vec::with_capacity(format.num_inputs as usize);
         for i in 0..(format.num_inputs as usize) {
             let input = &format.inputs[i];
             let semstr = VERTEX_SEMANTIC_NAMES[input.semantic as usize];

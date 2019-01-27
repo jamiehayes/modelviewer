@@ -91,8 +91,8 @@ impl ShaderCompiler {
 
     pub fn compile(&self, entry_point: &str, profile: ShaderType) -> Result<ShaderCode, ()> {
         let wfname = to_wstring(self.path.to_str().unwrap());
-        let mut tempstrs = Vec::<CString>::with_capacity(self.defines.len() * 2);
-        let mut defs = Vec::<d3dcommon::D3D_SHADER_MACRO>::with_capacity(self.defines.len());
+        let mut tempstrs = Vec::with_capacity(self.defines.len() * 2);
+        let mut defs = Vec::with_capacity(self.defines.len());
         for (name, optvalue) in &self.defines {
             if name.is_empty() {
                 continue;

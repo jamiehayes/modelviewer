@@ -25,20 +25,20 @@ impl ModelBuilder {
         let (models, materials_in) = tobj::load_obj(path)
             .map_err(|e|{ println!("Failed to load {:?}. Error: {}", path, e); })?;
 
-        let mut verts = Vec::<MeshVertex>::new();
-        let mut indices = Vec::<u32>::new();
-        let mut draws = Vec::<DrawData>::with_capacity(models.len());
-        let mut materials = Vec::<MaterialInfo>::with_capacity(materials_in.len());
+        let mut verts = Vec::new();
+        let mut indices = Vec::new();
+        let mut draws = Vec::with_capacity(models.len());
+        let mut materials = Vec::with_capacity(materials_in.len());
 
         for mat in materials_in {
-            let mut textures = HashMap::<String, PathBuf>::with_capacity(1);
+            let mut textures = HashMap::with_capacity(1);
             let tex_path: PathBuf = ["data\\objects", &mat.diffuse_texture].iter().collect();
             textures.insert("albedo_map".to_string(), tex_path);
             let mat_info = MaterialInfo {
                 shader_file: PathBuf::from("data\\shaders\\object.hlsl"),
                 vert_format: MeshVertex::get_format(),
                 topology: PrimitiveTopology::TriangleList,
-                textures,                
+                textures,
             };
             materials.push(mat_info);
         }
@@ -100,7 +100,7 @@ impl ModelBuilder {
     pub fn build(self, gfx: &Graphics) -> Result<Model, ()> {
         // TODO: stop hardcoding material shader & get from obj data
         let vfmt = MeshVertex::get_format();
-        let mut mats = Vec::<Material>::with_capacity(self.materials.len());
+        let mut mats = Vec::with_capacity(self.materials.len());
         for mat in self.materials {
             mats.push(Material::load(gfx, &mat)?);
         }

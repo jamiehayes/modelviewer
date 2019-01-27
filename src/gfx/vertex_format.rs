@@ -223,8 +223,8 @@ impl Default for VertPosNormUVColor {
     fn default() -> Self {
         Self {
             pos: Point3F::origin(),
-            norm: zero::<Vector3F>(),
-            uv: zero::<Vector2F>(),
+            norm: zero(),
+            uv: zero(),
             color: Color::white()
         }
     }
