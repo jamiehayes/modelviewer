@@ -1,5 +1,5 @@
 [package]
-name = "gamejam"
+name = "modelviewer"
 version = "0.1.0"
 authors = ["Jamie Hayes <strikemedown1981@gmail.com>"]
 edition = "2018"
