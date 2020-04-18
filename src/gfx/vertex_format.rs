@@ -170,7 +170,7 @@ impl VertexFormat {
 #[derive(Debug, Clone, Copy)]
 pub struct VertPosColor {
     pub pos: Point3F,
-    pub color: Color
+    pub color: Color4
 }
 
 impl VertPosColor {
@@ -186,7 +186,7 @@ impl VertPosColor {
 
 impl Default for VertPosColor {
     fn default() -> Self {
-        Self { pos: Point3F::origin(), color: Color::white() }
+        Self { pos: Point3F::origin(), color: Color4::white() }
     }
 }
 
@@ -198,7 +198,7 @@ pub struct VertPosNormUVColor {
     pub pos: Point3F,
     pub norm: Vector3F,
     pub uv: Vector2F,
-    pub color: Color
+    pub color: Color4
 }
 
 impl VertPosNormUVColor {
@@ -225,7 +225,7 @@ impl Default for VertPosNormUVColor {
             pos: Point3F::origin(),
             norm: zero(),
             uv: zero(),
-            color: Color::white()
+            color: Color4::white()
         }
     }
 }

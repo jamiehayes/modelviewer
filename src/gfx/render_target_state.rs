@@ -10,7 +10,7 @@ use crate::numerics::*;
 pub struct RenderTargetState {
     rt: RenderTarget,
     ds: Option<DepthStencilTarget>,
-    clear_color: ColorF,
+    clear_color: Color4F,
     clear_depth: f32,
     flags: u32
 }
@@ -26,7 +26,7 @@ impl RenderTargetState {
         Self {
             rt,
             ds,
-            clear_color: ColorF::transparent_black(),
+            clear_color: Color4F::transparent_black(),
             clear_depth: 0.0f32,
             flags: 0
         }
@@ -35,7 +35,7 @@ impl RenderTargetState {
     ///
     /// Sets the color to clear the render target to
     ///
-    pub fn enable_clear_color(&mut self, color: ColorF) {
+    pub fn enable_clear_color(&mut self, color: Color4F) {
         self.flags |= Self::CLEAR_COLOR;
         self.clear_color = color;
     }

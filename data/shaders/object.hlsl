@@ -5,8 +5,12 @@ cbuffer Constants : register(b0)
 {
     row_major float4x4 worldMat;
     row_major float4x4 viewProjMat;
+    float3 cameraPos;
+    float specularAmount;
     float4 materialColor;
     float4 ambientColor;
+    float3 specularColor;
+    float specularPower;
     float4 sunColor;
     float3 sunDir;
 }
@@ -25,6 +29,7 @@ struct PSInput
     float3 normal: NORMAL;
     float2 uv: UV;
     float4 color : COLOR;
+    float3 viewDir : VIEW_DIR;
 };
 
 PSInput VSMain(VSInput input)
@@ -36,6 +41,7 @@ PSInput VSMain(VSInput input)
     output.normal = mul(input.normal, (float3x3)worldMat);
     output.uv = input.uv;
     output.color = input.color;
+    output.viewDir = worldPos - cameraPos;
 
     return output;
 }
@@ -47,10 +53,13 @@ float4 PSMain(PSInput input) : SV_Target0
     albedo *= albedo_map.Sample(linear_wrap_sampler, input.uv);
 
     float3 n = normalize(input.normal);
+    float3 h = reflect(normalize(input.viewDir), n);
     float3 diffuse = ambientColor + sunColor.rgb * saturate(dot(n, sunDir));
+    float3 specular = specularAmount * specularColor * pow(saturate(dot(h, sunDir)), specularPower);
 
     float4 color = albedo;
     color.rgb *= diffuse;
+    color.rgb += specular;
 
     return color;
 }

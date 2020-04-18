@@ -150,7 +150,7 @@ impl Graphics {
                         let b = img.data[i * 3 + 2];
                         let a = 255;
 
-                        data.push(Color::from_rgba(r, g, b, a));
+                        data.push(Color4::from_rgba(r, g, b, a));
                     }
                     self.create_texture2d(
                         TextureFormat::R8G8B8A8UNormSrgb,
@@ -191,7 +191,7 @@ impl Graphics {
                         let b = img.data[i * 3 + 2];
                         let a = 1.0f32;
 
-                        data.push(ColorF::from_rgba(r, g, b, a));
+                        data.push(Color4F::from_rgba(r, g, b, a));
                     }
                     self.create_texture2d(
                         TextureFormat::R32G32B32A32Float,
@@ -436,7 +436,7 @@ impl Graphics {
     ///
     /// Clears the specified render target to the specified color
     ///
-    pub fn clear_render_target(&self, rt: &RenderTarget, rgba: &ColorF) {
+    pub fn clear_render_target(&self, rt: &RenderTarget, rgba: &Color4F) {
         let c = [rgba.r, rgba.g, rgba.b, rgba.a];
         unsafe { (*self.context).ClearRenderTargetView(rt.rtv, &c); }
     }

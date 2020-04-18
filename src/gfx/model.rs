@@ -11,7 +11,7 @@ pub struct MeshVertex {
     pub norm: Vector3F,
     pub tangent: Vector3F,
     pub uv: Vector2F,
-    pub color: Color
+    pub color: Color4
 }
 
 impl MeshVertex {
@@ -41,7 +41,7 @@ impl Default for MeshVertex {
             norm: zero(),
             tangent: zero(),
             uv: zero(),
-            color: Color::white()
+            color: Color4::white()
         }
     }
 }

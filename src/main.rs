@@ -21,9 +21,13 @@ struct ModelViewer {
 struct BuffData {
     world: Matrix4F,
     view_proj: Matrix4F,
-    material_color: ColorF,
-    ambient_color: ColorF,
-    sun_color: ColorF,
+    camera_pos: Vector3F,
+    specular_amount : f32,
+    material_color: Color4F,
+    ambient_color: Color4F,
+    specular_color: Color3F,
+    specular_power: f32,
+    sun_color: Color4F,
     sun_dir: Vector3F
 }
 
@@ -39,7 +43,7 @@ impl ModelViewer {
         let ds = app.graphics.create_depth_stencil_target(DepthStencilFormat::D24UNormS8,
             width, height)?;
         let mut rt_state = RenderTargetState::new(rt, Some(ds));
-        rt_state.enable_clear_color(ColorF::black());
+        rt_state.enable_clear_color(Color4F::black());
         rt_state.enable_clear_depth(1.0f32);
 
         let objpath = std::path::Path::new("data\\objects\\test2.obj");
@@ -87,15 +91,22 @@ impl app::AppInterface for ModelViewer {
         let view = Matrix4F::try_inverse(Matrix4F::from(cam_xform)).unwrap();
         let proj = Matrix4F::new_perspective(16.0f32 / 9.0f32, deg_to_rad(45.0f32), 0.1f32, 5000.0f32);
         let view_proj = proj * view;
-        let material_color = ColorF::from_rgba(0.3f32, 0.3f32, 0.3f32, 1.0f32);
-        let ambient_color = ColorF::from_rgba(0.0f32, 0.1f32, 0.2f32, 1.0f32);
+        let material_color = Color4F::from_rgba(0.3f32, 0.3f32, 0.3f32, 1.0f32);
+        let ambient_color = Color4F::from_rgba(0.0f32, 0.1f32, 0.2f32, 1.0f32);
+        let specular_color = Color3F::from_rgb(0.4f32, 0.4f32, 0.4f32);
+        let specular_power = 1.0f32;
+        let specular_amount = 0.5f32;
         let sun_dir = Vector3F::new(1.0f32, 1.0f32, 1.0f32);
-        let sun_color = ColorF::from_rgba(1.0f32, 1.0f32, 0.75f32, 1.0f32);
+        let sun_color = Color4F::from_rgba(1.0f32, 1.0f32, 0.75f32, 1.0f32);
         let buffdata = BuffData {
             world: world,
             view_proj,
+            camera_pos: cam_trans,
+            specular_amount,
             material_color,
             ambient_color,
+            specular_color,
+            specular_power,
             sun_color,
             sun_dir
         };
