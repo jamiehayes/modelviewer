@@ -1,6 +1,5 @@
 mod app;
 mod gfx;
-mod components;
 mod numerics;
 
 use crate::gfx::*;
