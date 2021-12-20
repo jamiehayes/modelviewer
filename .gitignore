@@ -3,3 +3,4 @@
 
 **/.mayaSwatches/*
 *.sublime-workspace
+.vs/*
